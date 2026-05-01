@@ -26,7 +26,7 @@ def apply(schema) -> None:
         "grid.linewidth": 0.8,
         "grid.alpha": 0.6,
 
-        # Spines
+        # Spines 
         "axes.spines.top": False,
         "axes.spines.right": False,
 
