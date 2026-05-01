@@ -7,7 +7,6 @@ class PlotSchema:
     name: str
     primary: str
     secondary: str
-    tertiary: str
     neutral: str
     background: str = "white"
     grid: str = "#e6e6e6"
