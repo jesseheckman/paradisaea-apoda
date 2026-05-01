@@ -4,6 +4,8 @@ from cycler import cycler
 import matplotlib.pyplot as plt
 
 
+_ACTIVE_SCHEMA = None
+
 def get_palette(schema, palette: str = "binary", n: int | None = None) -> tuple[str, ...]:
     if palette == "binary":
         return schema.binary()
@@ -21,6 +23,9 @@ def get_palette(schema, palette: str = "binary", n: int | None = None) -> tuple[
 
 def apply(schema, palette: str = "binary", n: int | None = None) -> None:
     """Apply an Apoda plot schema to Matplotlib."""
+
+    global _ACTIVE_SCHEMA
+    _ACTIVE_SCHEMA = schema
 
     colors = get_palette(schema, palette=palette, n=n)
 
@@ -42,9 +47,15 @@ def apply(schema, palette: str = "binary", n: int | None = None) -> None:
         "ytick.color": schema.neutral,
     })
 
+def _resolve_schema(schema):
+    if schema is not None:
+        return schema
+    if _ACTIVE_SCHEMA is None:
+        raise ValueError("No active schema. Call ap.apply() first.")
+    return _ACTIVE_SCHEMA
 
-def helper_hline(ax, y: float, schema, **kwargs):
-    """Draw a horizontal helper/reference line."""
+def helper_hline(ax, y: float, schema=None, **kwargs):
+    schema = _resolve_schema(schema)
 
     defaults = {
         "color": schema.helper,
@@ -57,8 +68,8 @@ def helper_hline(ax, y: float, schema, **kwargs):
     return ax.axhline(y, **defaults)
 
 
-def helper_vline(ax, x: float, schema, **kwargs):
-    """Draw a vertical helper/reference line."""
+def helper_vline(ax, x: float, schema=None, **kwargs):
+    schema = _resolve_schema(schema)
 
     defaults = {
         "color": schema.helper,
