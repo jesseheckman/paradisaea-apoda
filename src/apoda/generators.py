@@ -3,19 +3,24 @@
 import colorsys
 
 
-def sequential(hex_color: str, n: int):
-    """Generate n sequential shades from a base colour."""
-    
-    hex_color = hex_color.lstrip("#")
-    r, g, b = tuple(int(hex_color[i:i+2], 16)/255 for i in (0, 2, 4))
+def sequential(hex_color: str, n: int) -> tuple[str, ...]:
+    """Generate n perceptually reasonable sequential shades from a base colour."""
 
+    if n <= 0:
+        raise ValueError("n must be > 0")
+
+    hex_color = hex_color.lstrip("#")
+    r, g, b = tuple(int(hex_color[i:i+2], 16) / 255 for i in (0, 2, 4))
     h, l, s = colorsys.rgb_to_hls(r, g, b)
 
-    # varieer lightness
+    min_l = max(0.15, l * 0.6)
+    max_l = min(0.9, l * 1.3)
+
     shades = []
     for i in range(n):
-        # van licht -> donker
-        new_l = min(1, max(0, l * (0.5 + i / (n * 0.8))))
+        t = i / (n - 1) if n > 1 else 0.5  # voorkomt divide-by-zero
+        new_l = min_l + (max_l - min_l) * t
+
         r2, g2, b2 = colorsys.hls_to_rgb(h, new_l, s)
 
         shades.append("#{:02x}{:02x}{:02x}".format(
@@ -24,4 +29,4 @@ def sequential(hex_color: str, n: int):
             int(b2 * 255),
         ))
 
-    return shades
+    return tuple(shades)

@@ -2,38 +2,40 @@
 
 from cycler import cycler
 import matplotlib.pyplot as plt
-from .generators import sequential
 
 
-def apply(schema, sequential_n: int | None = None) -> None:
+def get_palette(schema, palette: str = "binary", n: int | None = None) -> tuple[str, ...]:
+    if palette == "binary":
+        return schema.binary()
+
+    if palette == "sequential":
+        if n is None:
+            raise ValueError("n must be provided for sequential palettes.")
+        return schema.sequential(n)
+
+    if palette == "ordinal":
+        return schema.ordinal(n)
+
+    raise ValueError(f"Unknown palette: {palette}")
+
+
+def apply(schema, palette: str = "binary", n: int | None = None) -> None:
     """Apply an Apoda plot schema to Matplotlib."""
 
-    if sequential_n:
-        colors = sequential(schema.primary, sequential_n)
-    else:
-        colors = [schema.primary, schema.secondary]
+    colors = get_palette(schema, palette=palette, n=n)
 
     plt.rcParams.update({
-        # Data colour cycle
         "axes.prop_cycle": cycler(color=colors),
-
-        # Figure / axes
         "figure.figsize": (10, 4),
         "figure.dpi": 100,
         "axes.grid": True,
         "axes.axisbelow": True,
-
-        # Grid
         "grid.color": schema.grid,
         "grid.linestyle": "--",
         "grid.linewidth": 0.8,
         "grid.alpha": 0.6,
-
-        # Spines
         "axes.spines.top": False,
         "axes.spines.right": False,
-
-        # Text / ticks
         "text.color": schema.neutral,
         "axes.labelcolor": schema.neutral,
         "xtick.color": schema.neutral,
