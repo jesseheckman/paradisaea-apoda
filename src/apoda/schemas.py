@@ -10,3 +10,4 @@ class PlotSchema:
     neutral: str
     background: str = "white"
     grid: str = "#e6e6e6"
+    helper: str = "#4a4a4a"
