@@ -3,16 +3,25 @@
 from cycler import cycler
 import matplotlib.pyplot as plt
 
+# src/apoda/style.py
 
-def apply(schema) -> None:
+from cycler import cycler
+import matplotlib.pyplot as plt
+from .generators import sequential
+
+
+def apply(schema, sequential_n: int | None = None) -> None:
     """Apply an Apoda plot schema to Matplotlib."""
+
+    # 🔥 Kies color cycle
+    if sequential_n:
+        colors = sequential(schema.primary, sequential_n)
+    else:
+        colors = [schema.primary, schema.secondary]
 
     plt.rcParams.update({
         # Data colour cycle
-        "axes.prop_cycle": cycler(color=[
-            schema.primary,
-            schema.secondary,
-        ]),
+        "axes.prop_cycle": cycler(color=colors),
 
         # Figure / axes
         "figure.figsize": (10, 4),
@@ -26,7 +35,7 @@ def apply(schema) -> None:
         "grid.linewidth": 0.8,
         "grid.alpha": 0.6,
 
-        # Spines 
+        # Spines
         "axes.spines.top": False,
         "axes.spines.right": False,
 
