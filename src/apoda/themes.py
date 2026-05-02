@@ -5,8 +5,8 @@ from .schemas import PlotSchema
 DEFAULT = PlotSchema(
     name="default", 
     primary="#c44e52",
-    secondary="#bebebe",
-    neutral="#4a4a4a",
+    secondary="#4c72b0",
+    neutral="#bebebe",
     helper="#aaaaaa",
     grid="#e6e6e6",
     ordinal_colors=(

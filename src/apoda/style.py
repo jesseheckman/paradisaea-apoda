@@ -6,9 +6,15 @@ import matplotlib.pyplot as plt
 
 _ACTIVE_SCHEMA = None
 
-def get_palette(schema, palette: str = "binary", n: int | None = None) -> tuple[str, ...]:
+
+def get_palette(
+    schema,
+    palette: str = "binary",
+    n: int | None = None,
+    accent: str = "primary",
+) -> tuple[str, ...]:
     if palette == "binary":
-        return schema.binary()
+        return schema.binary(accent=accent)
 
     if palette == "sequential":
         if n is None:
@@ -21,13 +27,23 @@ def get_palette(schema, palette: str = "binary", n: int | None = None) -> tuple[
     raise ValueError(f"Unknown palette: {palette}")
 
 
-def apply(schema, palette: str = "binary", n: int | None = None) -> None:
+def apply(
+    schema,
+    palette: str = "binary",
+    n: int | None = None,
+    accent: str = "primary",
+) -> None:
     """Apply an Apoda plot schema to Matplotlib."""
 
     global _ACTIVE_SCHEMA
     _ACTIVE_SCHEMA = schema
 
-    colors = get_palette(schema, palette=palette, n=n)
+    colors = get_palette(
+        schema,
+        palette=palette,
+        n=n,
+        accent=accent,
+    )
 
     plt.rcParams.update({
         "axes.prop_cycle": cycler(color=colors),
@@ -47,12 +63,14 @@ def apply(schema, palette: str = "binary", n: int | None = None) -> None:
         "ytick.color": schema.neutral,
     })
 
+
 def _resolve_schema(schema):
     if schema is not None:
         return schema
     if _ACTIVE_SCHEMA is None:
         raise ValueError("No active schema. Call ap.apply() first.")
     return _ACTIVE_SCHEMA
+
 
 def helper_hline(ax, y: float, schema=None, **kwargs):
     schema = _resolve_schema(schema)
