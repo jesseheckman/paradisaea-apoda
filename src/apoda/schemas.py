@@ -1,7 +1,7 @@
 # src/apoda/schemas.py
 
 from dataclasses import dataclass
-from .generators import sequential
+from .generators import interpolate_hex
 
 
 @dataclass(frozen=True)
@@ -26,8 +26,20 @@ class PlotSchema:
             return (self.off, self.secondary)
         raise ValueError("accent must be 'primary' or 'secondary'.")
 
-    def sequential(self, n: int) -> tuple[str, ...]:
-        return sequential(self.primary, n)
+    def sequential(self, n: int, between: tuple[str, str]) -> tuple[str, ...]:
+        allowed = {"primary", "secondary", "off", "neutral", "helper", "grid", "background"}
+
+        start_name, end_name = between
+
+        if start_name not in allowed or end_name not in allowed:
+            raise ValueError(
+                f"between must contain valid colour roles: {sorted(allowed)}"
+            )
+
+        start = getattr(self, start_name)
+        end = getattr(self, end_name)
+
+        return interpolate_hex(start, end, n)
 
     def ordinal(self, n: int | None = None) -> tuple[str, ...]:
         if n is None:

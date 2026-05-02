@@ -12,6 +12,7 @@ def get_palette(
     palette: str = "binary",
     n: int | None = None,
     accent: str = "primary",
+    between: tuple[str, str] | None = None,
 ) -> tuple[str, ...]:
     if palette == "binary":
         return schema.binary(accent=accent)
@@ -19,7 +20,9 @@ def get_palette(
     if palette == "sequential":
         if n is None:
             raise ValueError("n must be provided for sequential palettes.")
-        return schema.sequential(n)
+        if between is None:
+            between = ("off", "primary")
+        return schema.sequential(n=n, between=between)
 
     if palette == "ordinal":
         return schema.ordinal(n)
@@ -32,6 +35,7 @@ def apply(
     palette: str = "binary",
     n: int | None = None,
     accent: str = "primary",
+    between: tuple[str, str] | None = None,
 ) -> None:
     """Apply an Apoda plot schema to Matplotlib."""
 
@@ -43,6 +47,7 @@ def apply(
         palette=palette,
         n=n,
         accent=accent,
+        between=between,
     )
 
     plt.rcParams.update({
