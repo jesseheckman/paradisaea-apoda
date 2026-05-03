@@ -1,7 +1,7 @@
 from importlib.metadata import version
 
 from .schemas import PlotSchema
-from .themes import DEFAULT, MINIMAL
+from .themes import DEFAULT, MINIMAL, JUNANA
 from .style import apply, helper_hline, helper_vline
 
 __all__ = [
