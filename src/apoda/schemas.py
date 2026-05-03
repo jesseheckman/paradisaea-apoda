@@ -9,8 +9,8 @@ class PlotSchema:
     name: str
 
     primary: str
-    secondary: str
-    neutral: str
+    secondary: str 
+    neutral: str    # Lines, text, etc.
 
     background: str = "white"
     grid: str = "#e6e6e6"

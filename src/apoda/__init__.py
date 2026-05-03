@@ -8,6 +8,7 @@ __all__ = [
     "PlotSchema",
     "DEFAULT",
     "MINIMAL",
+    "JUNANA",
     "apply",
     "helper_hline",
     "helper_vline",
