@@ -1,14 +1,14 @@
 from importlib.metadata import version
 
 from .schemas import PlotSchema
-from .themes import DEFAULT, MINIMAL, JUNANA
+from .themes import DEFAULT, MINIMAL, HARBOR
 from .style import apply, helper_hline, helper_vline
 
 __all__ = [
     "PlotSchema",
     "DEFAULT",
     "MINIMAL",
-    "JUNANA",
+    "HARBOR",
     "apply",
     "helper_hline",
     "helper_vline",

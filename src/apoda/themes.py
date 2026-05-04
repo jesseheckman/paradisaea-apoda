@@ -32,12 +32,12 @@ MINIMAL = PlotSchema(
     ),
 )
 
-JUNANA = PlotSchema(
-    name="junana", 
+HARBOR = PlotSchema(
+    name="harbor", 
     primary="#63a89c",
-    secondary="#3f5d7a",
-    neutral="#9c4f34",
-    helper="#1e2224",
+    secondary="#9c4f34",
+    neutral="#1e2224",
+    helper="#5f3b2e",
     grid="#e6e6e6",
     ordinal_colors=(
         "#63a89c",
