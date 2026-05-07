@@ -3,6 +3,7 @@ from importlib.metadata import version
 from .schemas import PlotSchema, AxisStyle
 from .themes import DEFAULT, MINIMAL, HARBOR, BOTANICA
 from .style import apply, helper_hline, helper_vline
+from .effects import sparkle
 
 __all__ = [
     "PlotSchema",
@@ -14,6 +15,7 @@ __all__ = [
     "apply",
     "helper_hline",
     "helper_vline",
+    "sparkle",
 ]
 
 __version__ = version("paradisaea-apoda")

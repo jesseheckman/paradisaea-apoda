@@ -81,7 +81,6 @@ def apply(
         # Grid
         "axes.grid": True,
         "axes.axisbelow": True,
-
         "grid.color": schema.grid,
         "grid.linestyle": "-",
         "grid.linewidth": 1,
@@ -140,7 +139,10 @@ def helper_hline(ax, y: float, schema=None, **kwargs):
 
     defaults.update(kwargs)
 
-    return ax.axhline(y, **defaults)
+    line = ax.axhline(y, **defaults)
+    line._apoda_helper = True
+
+    return line
 
 
 def helper_vline(ax, x: float, schema=None, **kwargs):
@@ -156,4 +158,7 @@ def helper_vline(ax, x: float, schema=None, **kwargs):
 
     defaults.update(kwargs)
 
-    return ax.axvline(x, **defaults)
+    line = ax.axvline(x, **defaults)
+    line._apoda_helper = True   
+
+    return line

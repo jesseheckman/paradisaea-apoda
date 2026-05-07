@@ -68,6 +68,6 @@ BOTANICA = PlotSchema(
     axis=AxisStyle(
         top=True,
         right=True,
-        linewidth=1,
+        linewidth=0.8,
     ),
 )
