@@ -1,16 +1,22 @@
 [project]
 name = "paradisaea-apoda"
-version = "0.1.0"
+version = "0.1.1"
 description = "Lightweight plotting utilities and colour palettes for clean, consistent visualisations."
 readme = "README.md"
 authors = [
     { name = "Jesse Heckman", email = "jesse.heckman@gmail.com" }
 ]
 requires-python = ">=3.12"
+license = "MIT"
 dependencies = [
     "cycler>=0.12.1",
-    "matplotlib>=3.10.9",
+    "matplotlib>=3.8",
 ]
+
+[project.urls]
+Homepage = "https://github.com/jesseheckman/apoda"
+Repository = "https://github.com/jesseheckman/apoda"
+Issues = "https://github.com/jesseheckman/apoda/issues"
 
 [build-system]
 requires = ["hatchling"]

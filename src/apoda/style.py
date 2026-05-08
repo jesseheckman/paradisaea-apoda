@@ -1,6 +1,7 @@
 # src/apoda/style.py
 
 from cycler import cycler
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 
 from .schemas import AxisStyle, merge_axis
@@ -8,6 +9,27 @@ from .schemas import AxisStyle, merge_axis
 
 _ACTIVE_SCHEMA = None
 
+
+def cmap(schema=None, *, low=None, high=None, name=None):
+    """
+    Create a Matplotlib colormap from an apoda schema.
+    """
+
+    schema = schema or _ACTIVE_SCHEMA
+
+    if schema is None:
+        raise ValueError(
+            "No schema provided and no active schema set. "
+            "Call style.apply(schema) first or pass schema explicitly."
+        )
+
+    low = low or schema.secondary
+    high = high or schema.primary
+
+    return mpl.colors.LinearSegmentedColormap.from_list(
+        name or f"apoda_{schema.name}",
+        [low, high],
+    )
 
 def get_palette(
     schema,

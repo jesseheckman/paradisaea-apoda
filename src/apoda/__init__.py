@@ -2,7 +2,7 @@ from importlib.metadata import version
 
 from .schemas import PlotSchema, AxisStyle
 from .themes import DEFAULT, MINIMAL, HARBOR, BOTANICA
-from .style import apply, helper_hline, helper_vline
+from .style import apply, helper_hline, helper_vline, cmap
 from .effects import sparkle
 
 __all__ = [
@@ -13,6 +13,7 @@ __all__ = [
     "HARBOR",
     "BOTANICA",
     "apply",
+    "cmap",
     "helper_hline",
     "helper_vline",
     "sparkle",
